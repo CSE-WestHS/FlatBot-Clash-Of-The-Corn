@@ -6,8 +6,9 @@ package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.Indexer.Indexer;
+import frc.robot.subsystems.Shooter.Shooter;
+
 public class ShootNote extends Command {
   Shooter shooter;
   Indexer indexer;
@@ -16,7 +17,7 @@ public class ShootNote extends Command {
   /** Creates a new ShootNote. */
   public ShootNote(Shooter Shooter, Indexer Indexer, int TargetSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Shooter,Indexer);
+    addRequirements(Shooter, Indexer);
     this.shooter = Shooter;
     this.indexer = Indexer;
     this.targetSpeed = TargetSpeed;
@@ -48,7 +49,7 @@ public class ShootNote extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!indexer.getBeamState() || (Timer.getFPGATimestamp()- startTIme) > 3) {
+    if (!indexer.getBeamState() || (Timer.getFPGATimestamp() - startTIme) > 3) {
       return true;
     }
     return false;

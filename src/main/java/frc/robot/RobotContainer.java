@@ -175,11 +175,10 @@ public class RobotContainer {
                             new Rotation2d(
                                 (DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0))),
                 drive));
-    controller.b().onTrue((new ShootNote(shooter,indexer,2500)));
+    controller.b().onTrue((new ShootNote(shooter, indexer, 2500)));
     controller.y().onTrue(new AcquireNote(indexer, intake));
     controller.povUp().onTrue(new EjectNote(intake));
   }
-  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
