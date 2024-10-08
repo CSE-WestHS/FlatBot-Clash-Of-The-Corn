@@ -24,14 +24,14 @@ import frc.robot.Constants;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
-public class Inatke extends SubsystemBase {
+public class Intake extends SubsystemBase {
   private final IntakeIO io;
   private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
   private final SimpleMotorFeedforward ffModel;
   private final SysIdRoutine sysId;
 
   /** Creates a new Flywheel. */
-  public Inatke(IntakeIO io) {
+  public Intake(IntakeIO io) {
     this.io = io;
 
     // Switch constants based on mode (the physics simulator is treated as a

@@ -107,4 +107,8 @@ public class Indexer extends SubsystemBase {
   public double getCharacterizationVelocity() {
     return inputs.velocityRadPerSec;
   }
+  //returns beam state
+  public boolean getBeamState() {
+    return IndexerIOSparkMax.beamState.get();
+  }
 }

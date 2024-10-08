@@ -20,6 +20,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * NOTE: To use the Spark Flex / NEO Vortex, replace all instances of "CANSparkMax" with
@@ -27,7 +28,7 @@ import edu.wpi.first.math.util.Units;
  */
 public class IndexerIOSparkMax implements IndexerIO {
   private static final double GEAR_RATIO = 1.5;
-
+  static DigitalInput beamState = new DigitalInput(0);
   private final CANSparkMax leader =
       new CANSparkMax(frc.robot.Constants.INTAKE_MOTOR_1, MotorType.kBrushless);
   private final CANSparkMax follower =
