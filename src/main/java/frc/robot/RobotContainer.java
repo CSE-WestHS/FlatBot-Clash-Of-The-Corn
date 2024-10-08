@@ -26,6 +26,18 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.IndexerCommands.AcquireNote;
+import frc.robot.commands.IntakeCommands.EjectNote;
+import frc.robot.commands.Shooter.ShootNote;
+import frc.robot.subsystems.Indexer.Indexer;
+import frc.robot.subsystems.Indexer.IndexerIO;
+import frc.robot.subsystems.Indexer.IndexerIOSim;
+import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake.IntakeIO;
+import frc.robot.subsystems.Intake.IntakeIOSim;
+import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.Shooter.ShooterIO;
+import frc.robot.subsystems.Shooter.ShooterIOSim;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIONavX;
 import frc.robot.subsystems.drive.ModuleIO;
@@ -42,6 +54,9 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  private final Shooter shooter;
+  private final Indexer indexer;
+  private final Intake intake;
   //   private final Shooter shooter;
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -61,6 +76,9 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
+        shooter = new Shooter(new ShooterIO() {});
+        indexer = new Indexer(new IndexerIO() {});
+        intake = new Intake(new IntakeIO() {});
         // shooter = new Shooter(new ShooterIO() {});
         // drive = new Drive(
         // new GyroIOPigeon2(),
@@ -81,7 +99,9 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim());
-        // shooter = new Shooter(new ShooterIO() {});
+        shooter = new Shooter(new ShooterIO() {});
+        indexer = new Indexer(new IndexerIO() {});
+        intake = new Intake(new IntakeIO() {});
         break;
 
       default:
@@ -93,6 +113,9 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
+        shooter = new Shooter(new ShooterIOSim() {});
+        indexer = new Indexer(new IndexerIOSim() {});
+        intake = new Intake(new IntakeIOSim() {});
         // shooter = new Shooter(new ShooterIO() {});
         break;
     }
@@ -132,15 +155,15 @@ public class RobotContainer {
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
     controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    controller
-        .b()
-        .onTrue(
-            Commands.runOnce(
-                    () ->
-                        drive.setPose(
-                            new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
-                    drive)
-                .ignoringDisable(true));
+    // controller
+    //     .b()
+    //     .onTrue(
+    //         Commands.runOnce(
+    //                 () ->
+    //                     drive.setPose(
+    //                         new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
+    //                 drive)
+    //             .ignoringDisable(true));
     controller
         .back()
         .onTrue(
@@ -152,7 +175,11 @@ public class RobotContainer {
                             new Rotation2d(
                                 (DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0))),
                 drive));
+    controller.b().onTrue((new ShootNote(shooter,indexer,2500)));
+    controller.y().onTrue(new AcquireNote(indexer, intake));
+    controller.povUp().onTrue(new EjectNote(intake));
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
