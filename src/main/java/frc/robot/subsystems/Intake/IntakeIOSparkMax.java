@@ -64,6 +64,7 @@ public class IntakeIOSparkMax implements IntakeIO {
   @Override
   public void setVoltage(double volts) {
     leader.setVoltage(volts);
+    follower.setVoltage(volts);
   }
 
   @Override
@@ -79,6 +80,7 @@ public class IntakeIOSparkMax implements IntakeIO {
   @Override
   public void stop() {
     leader.stopMotor();
+    follower.stopMotor();
   }
 
   @Override

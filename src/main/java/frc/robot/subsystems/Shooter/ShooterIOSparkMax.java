@@ -79,6 +79,7 @@ public class ShooterIOSparkMax implements ShooterIO {
   @Override
   public void stop() {
     leader.stopMotor();
+    follower.stopMotor();
   }
 
   @Override

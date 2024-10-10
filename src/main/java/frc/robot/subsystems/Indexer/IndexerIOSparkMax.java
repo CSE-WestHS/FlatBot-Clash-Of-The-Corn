@@ -31,26 +31,20 @@ public class IndexerIOSparkMax implements IndexerIO {
   static DigitalInput beamState = new DigitalInput(0);
   private final CANSparkMax leader =
       new CANSparkMax(frc.robot.Constants.INTAKE_MOTOR_1, MotorType.kBrushless);
-  private final CANSparkMax follower =
-      new CANSparkMax(frc.robot.Constants.INTAKE_MOTOR_2, MotorType.kBrushless);
   private final RelativeEncoder encoder = leader.getEncoder();
   private final SparkPIDController pid = leader.getPIDController();
 
   public IndexerIOSparkMax() {
     leader.restoreFactoryDefaults();
-    follower.restoreFactoryDefaults();
 
     leader.setCANTimeout(250);
-    follower.setCANTimeout(250);
 
     leader.setInverted(false);
-    follower.follow(leader, false);
 
     leader.enableVoltageCompensation(12.0);
     leader.setSmartCurrentLimit(30);
 
     leader.burnFlash();
-    follower.burnFlash();
   }
 
   @Override
@@ -59,7 +53,7 @@ public class IndexerIOSparkMax implements IndexerIO {
     inputs.velocityRadPerSec =
         Units.rotationsPerMinuteToRadiansPerSecond(encoder.getVelocity() / GEAR_RATIO);
     inputs.appliedVolts = leader.getAppliedOutput() * leader.getBusVoltage();
-    inputs.currentAmps = new double[] {leader.getOutputCurrent(), follower.getOutputCurrent()};
+  inputs.currentAmps = new double[] {leader.getOutputCurrent()/* , follower.getOutputCurrent()*/};
   }
 
   @Override
