@@ -27,14 +27,14 @@ public class ShootNote extends Command {
   @Override
   public void initialize() {
     shooter.runVelocity(targetSpeed);
-    indexer.runVelocity(targetSpeed);
+    indexer.runVelocity(2000);
     startTIme = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs((shooter.getVelocityRPM() - targetSpeed)) < 3) {
+    if (Math.abs((shooter.getVelocityRPM() - targetSpeed)) < 30) {
       indexer.runVelocity(2000);
     }
   }
