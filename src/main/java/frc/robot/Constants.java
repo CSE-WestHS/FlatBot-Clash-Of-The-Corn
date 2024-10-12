@@ -13,6 +13,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -34,6 +36,12 @@ public final class Constants {
     /** Replaying from a log file. */
     REPLAY
   }
+
+  public static final double MAX_LINEAR_SPEED = Units.feetToMeters(10);
+  public static final double TRACK_WIDTH_X = Units.inchesToMeters(25.0);
+  public static final double TRACK_WIDTH_Y = Units.inchesToMeters(25.0);
+  public static final double DRIVE_BASE_RADIUS =
+      Math.hypot(TRACK_WIDTH_X / 2.0, TRACK_WIDTH_Y / 2.0);
 
   public static int DRIVE_FL = 6;
   public static int TURN_FL = 4;

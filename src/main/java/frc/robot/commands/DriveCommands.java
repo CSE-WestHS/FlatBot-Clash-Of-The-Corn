@@ -25,9 +25,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.drive.Drive;
 import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.Logger;
 
 public class DriveCommands {
   private static final double DEADBAND = 0.1;
+  private static double MAXSPEED;
+  private static double MAXSPEED_OMEGA;
 
   private DriveCommands() {}
 
@@ -41,6 +44,12 @@ public class DriveCommands {
       DoubleSupplier omegaSupplier) {
     return Commands.run(
         () -> {
+          MAXSPEED = drive.getMaxLinearSpeedMetersPerSec();
+          MAXSPEED_OMEGA =
+              frc.robot.Constants.MAX_LINEAR_SPEED / frc.robot.Constants.DRIVE_BASE_RADIUS;
+          Logger.recordOutput("Drive/DriveSpeed", MAXSPEED);
+          Logger.recordOutput("Drive/OmegaSpeed", MAXSPEED_OMEGA);
+
           // Apply deadband
           double linearMagnitude =
               MathUtil.applyDeadband(
@@ -67,7 +76,7 @@ public class DriveCommands {
               ChassisSpeeds.fromFieldRelativeSpeeds(
                   linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
                   linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                  omega * drive.getMaxAngularSpeedRadPerSec(),
+                  omega * MAXSPEED_OMEGA,
                   isFlipped
                       ? drive.getRotation().plus(new Rotation2d(Math.PI))
                       : drive.getRotation()));
