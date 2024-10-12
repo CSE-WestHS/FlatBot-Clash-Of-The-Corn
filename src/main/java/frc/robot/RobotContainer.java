@@ -187,9 +187,11 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.get();
   }
+
   public void SetDrivePose() {
-    drive.setPose(new Pose2d(drive.getPose().getTranslation(),
-                            new Rotation2d(
-                                (DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0)));
+    drive.setPose(
+        new Pose2d(
+            drive.getPose().getTranslation(),
+            new Rotation2d((DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0)));
   }
 }

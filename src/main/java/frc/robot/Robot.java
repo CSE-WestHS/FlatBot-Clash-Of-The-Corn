@@ -88,8 +88,8 @@ public class Robot extends LoggedRobot {
     // and put our autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
 
-    //Set the pose of the robot at startup
-    robotContainer.SetDrivePose(); //TODO: Test this code
+    // Set the pose of the robot at startup
+    robotContainer.SetDrivePose(); // TODO: Test this code
   }
 
   /** This function is called periodically during all modes. */
