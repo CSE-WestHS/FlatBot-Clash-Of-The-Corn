@@ -57,7 +57,7 @@ public class RobotContainer {
   private final Shooter shooter;
   private final Indexer indexer;
   private final Intake intake;
-  //   private final Shooter shooter;
+
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
 
@@ -79,7 +79,6 @@ public class RobotContainer {
         shooter = new Shooter(new ShooterIO() {});
         indexer = new Indexer(new IndexerIO() {});
         intake = new Intake(new IntakeIO() {});
-        // shooter = new Shooter(new ShooterIO() {});
         // drive = new Drive(
         // new GyroIOPigeon2(),
         // new ModuleIOTalonFX(0),
