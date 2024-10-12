@@ -98,9 +98,9 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim());
-        shooter = new Shooter(new ShooterIO() {});
-        indexer = new Indexer(new IndexerIO() {});
-        intake = new Intake(new IntakeIO() {});
+        shooter = new Shooter(new ShooterIOSim() {});
+        indexer = new Indexer(new IndexerIOSim() {});
+        intake = new Intake(new IntakeIOSim() {});
         break;
 
       default:
