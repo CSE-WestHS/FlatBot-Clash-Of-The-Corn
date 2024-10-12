@@ -89,7 +89,7 @@ public class Robot extends LoggedRobot {
     robotContainer = new RobotContainer();
 
     // Set the pose of the robot at startup
-    robotContainer.SetDrivePose(); // TODO: Test this code
+    // robotContainer.SetDrivePose(); // TODO: Test this code
   }
 
   /** This function is called periodically during all modes. */

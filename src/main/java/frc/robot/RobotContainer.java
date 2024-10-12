@@ -188,10 +188,10 @@ public class RobotContainer {
     return autoChooser.get();
   }
 
-  public void SetDrivePose() {
-    drive.setPose(
-        new Pose2d(
-            drive.getPose().getTranslation(),
-            new Rotation2d((DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0)));
-  }
+  // public void SetDrivePose() {
+  //   drive.setPose(
+  //       new Pose2d(
+  //           drive.getPose().getTranslation(),
+  //           new Rotation2d((DriverStation.getAlliance().get() == Alliance.Red) ? 3.14 : 0)));
+  // }
 }

@@ -13,18 +13,32 @@
 
 package frc.robot.subsystems.Indexer;
 
+import edu.wpi.first.hal.HALValue;
+import edu.wpi.first.hal.simulation.NotifyCallback;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.simulation.CallbackStore;
+import edu.wpi.first.wpilibj.simulation.DIOSim;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 
 public class IndexerIOSim implements IndexerIO {
   private FlywheelSim sim = new FlywheelSim(DCMotor.getNEO(1), 1.5, 0.004);
   private PIDController pid = new PIDController(0.0, 0.0, 0.0);
+  private DIOSim beambreakSim = new DIOSim(0);
 
   private boolean closedLoop = false;
   private double ffVolts = 0.0;
   private double appliedVolts = 0.0;
+
+  public IndexerIOSim() {
+    NotifyCallback callback =
+        (String name, HALValue value) -> {
+          beambreakSim.setValue(value.getBoolean());
+        };
+    @SuppressWarnings("unused")
+    CallbackStore store = beambreakSim.registerValueCallback(callback, false);
+  }
 
   @Override
   public void updateInputs(IndexerIOInputs inputs) {
@@ -35,6 +49,7 @@ public class IndexerIOSim implements IndexerIO {
     }
 
     sim.update(0.02);
+    beambreakSim.getValue();
 
     inputs.positionRad = 0.0;
     inputs.velocityRadPerSec = sim.getAngularVelocityRadPerSec();
