@@ -30,7 +30,7 @@ public class IndexerIOSparkMax implements IndexerIO {
   private static final double GEAR_RATIO = 1.5;
   static DigitalInput beamState = new DigitalInput(0);
   private final CANSparkMax leader =
-      new CANSparkMax(frc.robot.Constants.INTAKE_MOTOR_1, MotorType.kBrushless);
+      new CANSparkMax(frc.robot.Constants.INDEXER_MOTOR,MotorType.kBrushless);
   private final RelativeEncoder encoder = leader.getEncoder();
   private final SparkPIDController pid = leader.getPIDController();
 
