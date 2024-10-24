@@ -2,7 +2,7 @@
   {
     "name": "/AdvantageKit/Drive/Gyro/Connected",
     "type": "boolean",
-    "value": false,
+    "value": true,
     "properties": {
       "persistent": true
     }

@@ -35,7 +35,7 @@ public class Module {
   private Rotation2d angleSetpoint = null; // Setpoint for closed loop control, null for open loop
   private Double speedSetpoint = null; // Setpoint for closed loop control, null for open loop
   private Rotation2d turnRelativeOffset = null; // Relative + Offset = Absolute
-
+  // private double lastPositionMeters = 0.0;
   public Module(ModuleIO io, int index) {
     this.io = io;
     this.index = index;
@@ -57,7 +57,7 @@ public class Module {
       default:
         driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
         driveFeedback = new PIDController(0.0, 0.0, 0.0);
-        turnFeedback = new PIDController(0.0, 0.0, 0.0);
+        turnFeedback = new PIDController(5.0, 0.0, 0.0);
         break;
     }
 
@@ -156,6 +156,12 @@ public class Module {
   public double getVelocityMetersPerSec() {
     return inputs.driveVelocityRadPerSec * WHEEL_RADIUS;
   }
+
+  // public SwerveModulePosition getPositionDelta() {
+  //   var delta = new SwerveModulePosition(getPositionMeters() - lastPositionMeters, getAngle());
+  //   lastPositionMeters = getPositionMeters();
+  //   return delta;
+  // }
 
   /** Returns the module position (turn angle and drive position). */
   public SwerveModulePosition getPosition() {

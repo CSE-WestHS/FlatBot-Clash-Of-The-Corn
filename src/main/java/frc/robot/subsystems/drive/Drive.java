@@ -269,9 +269,9 @@ public class Drive extends SubsystemBase {
   public static Translation2d[] getModuleTranslations() {
     return new Translation2d[] {
       new Translation2d(Constants.TRACK_WIDTH_X / 2.0, Constants.TRACK_WIDTH_Y / 2.0),
-      new Translation2d(Constants.TRACK_WIDTH_X / 2.0, -Constants.TRACK_WIDTH_Y / 2.0),
-      new Translation2d(-Constants.TRACK_WIDTH_X / 2.0, Constants.TRACK_WIDTH_Y / 2.0),
-      new Translation2d(-Constants.TRACK_WIDTH_X / 2.0, -Constants.TRACK_WIDTH_Y / 2.0)
+      new Translation2d(Constants.TRACK_WIDTH_X / 2.0, -(Constants.TRACK_WIDTH_Y) / 2.0),
+      new Translation2d(-(Constants.TRACK_WIDTH_X) / 2.0, Constants.TRACK_WIDTH_Y / 2.0),
+      new Translation2d(-(Constants.TRACK_WIDTH_X) / 2.0, -(Constants.TRACK_WIDTH_Y) / 2.0)
     };
   }
 }

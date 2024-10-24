@@ -17,6 +17,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI.Port;
+import frc.robot.Constants;
 
 /** IO implementation for Pigeon2 */
 public class GyroIONavX implements GyroIO {
@@ -26,9 +27,16 @@ public class GyroIONavX implements GyroIO {
     NavX.reset();
   }
 
+  public boolean isSim() {
+    if (Constants.currentMode == Constants.Mode.SIM) {
+      return false;
+    }
+    return NavX.isConnected();
+  }
+
   @Override
   public void updateInputs(GyroIOInputs inputs) {
-    inputs.connected = NavX.isConnected();
+    inputs.connected = isSim();
     inputs.yawPosition = Rotation2d.fromDegrees(-NavX.getYaw());
     inputs.yawVelocityRadPerSec = Units.degreesToRadians(NavX.getVelocityZ());
   }
